@@ -11,11 +11,11 @@ int input(string text) {
 }
 void reverse(int n) {
 	int rem = 0;
-	string res = " ";
+	int res =0;
 	while (n > 0) {
 		rem = n % 10; // the final digit
 		n = n / 10; // the digits without final one 
-		res += to_string(rem);
+		res = res * 10 + rem;
 	}
 	cout << res << endl;
 
