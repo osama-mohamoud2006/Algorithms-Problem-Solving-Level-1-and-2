@@ -15,7 +15,7 @@ void reverse(int n) {
 	while (n > 0) {
 		rem = n % 10; // the final digit
 		n = n / 10; // the digits without final one 
-		res = res * 10 + rem;
+		res = res * 10 + rem; 
 	}
 	cout << res << endl;
 
