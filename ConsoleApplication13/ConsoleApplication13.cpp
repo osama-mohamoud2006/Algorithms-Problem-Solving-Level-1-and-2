@@ -12,9 +12,13 @@ int input(string message) {
 void pattern(int n) {
 	for (int i = 1; i <= n; i++) { // for lines
 		// loop to repeat thing at specified line 
-		for (int j = i; j >0; j--) {
+		/*for (int j = 1; j <=i; j++) {
+			cout << i;
+		}*/
+		for (int j = i; j > 0; j--) {
 			cout << i;
 		}
+
 		cout << endl;
 	}
 
