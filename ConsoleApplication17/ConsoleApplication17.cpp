@@ -15,7 +15,7 @@ string input() {
 	return p;
 }
 
-void get_password(string p) {
+bool get_password(string p) {
 	string word = ""; // word var to store result 
 	int count = 0; // to count how many times untill reach the target 
 	// first letter
@@ -30,22 +30,20 @@ void get_password(string p) {
 				word += i2; /// second
 				word += i3; // third
 				count++;
-				
+				cout << "trial " << "[ " << count << " ] " << word << endl;
 				if (word == p ) {
-					cout << "trial " << "[ " << count << " ] " << word << endl;
+					cout << endl;
 					cout << "the password is " << (word) << endl;
 					cout << "Found after " << count << " trials" << endl;
-					return; // exit after that 
+					return true ; // exit after that 
 
 				}
-				if(word !=p) {
-					cout  << "trial "<<"[ " << count<<" ] " << word << endl;
-				}
+				
 
 
 			}
 		}
-
+		return false;
 	}
 
 
