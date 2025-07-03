@@ -1,57 +1,58 @@
+//// steps
+// input word by user
+// get the pattern AAA
+// compare pattern with input 
+// cout steps untill reach the target
+// if input == pattern break all loops 
+
 #include <iostream>
+#include <string>
 using namespace std;
 string input() {
-	string n;
-	
-		cout << "enter 3 capital letters as your password : ";
-		cin >> n;
-		return n;
-	
+	cout << "enter password: ";
+	string p;
+	cin >> p;
+	return p;
 }
-void trials(string n) {
-	string word = "";
-	bool found = false; 
-	int count = 0; 
-	for (int i = 65; i <= 90; i++) // first letter
-	{
-	
 
-		for (int i2 = 65; i2 <= 90; i2++)  /// second letter
+void get_password(string p) {
+	string word = ""; // word var to store result 
+	int count = 0; // to count how many times untill reach the target 
+	// first letter
+	for (int i = 65; i <= 90; i++) // 65 is A , 90 is Z in ASCII
+	{
+		for (int i2 = 65; i2 <= 90; i2++) // second letter 
 		{
-			for (int i3 = 65; i3 <= 90; i3++) 
+			for (int i3 = 65; i3 <= 90; i3++) //// last word 
 			{
-				word = "";
-				word += char(i);
-				word += char(i2);
-				word += char(i3);
+				word = ""; // wmpty the word after each loop
+				word += i; // add first letter to word
+				word += i2; /// second
+				word += i3; // third
 				count++;
 				
-				 if (word == n) { 
-					cout << "found password after " <<  count <<" trials " << endl;
-					cout << "password is " << word << endl; 
-					found = true;
-					
+				if (word == p ) {
+					cout << "trial " << "[ " << count << " ] " << word << endl;
+					cout << "the password is " << (word) << endl;
+					cout << "Found after " << count << " trials" << endl;
+					return; // exit after that 
+
 				}
-				 else   {
-					 cout << "trial " << "[ " << count << " ]" << " : " << word << endl;
-					
-				 }
-				   
-				 if (found) break; 
-				
+				if(word !=p) {
+					cout  << "trial "<<"[ " << count<<" ] " << word << endl;
+				}
+
 
 			}
-
-			if (found) break;
 		}
-	
-		if (found) break;
+
 	}
 
 
-
 }
 
+
 int main() {
-	trials(input());
+
+	get_password(input());
 }
