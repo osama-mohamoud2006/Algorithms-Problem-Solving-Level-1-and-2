@@ -14,49 +14,57 @@ string input() {
 	return in;
 }
 
-void before(string word) {
-	cout << '\n';
-	cout << "text before encryption: " << word << endl;
-}
 
-void encrypt(string word , string  &word_encrypted) {
-	  word_encrypted = "";
-	int eq = 0;
+
+string encrypt(string word , short key ) {
+	
+
 	
 	for (int i = 0; i <= word.length(); i++) // walkthrough each char
 		// m 
 	{ 
 		
-		int ascii_value = word[i]; // convert the current char to int value 
-		 eq = ascii_value + 2;  // 109 is m , 109 +2 =111 // add 2 (As eq pattern needed )
-		 word_encrypted += char(eq); // 111 is o // convert the eq to char and add it to var
+		//int ascii_value = word[i]; // convert the current char to int value 
+		// eq = ascii_value + 2;  // 109 is m , 109 +2 =111 // add 2 (As eq pattern needed )
+		// word_encrypted += char(eq); // 111 is o // convert the eq to char and add it to var
+
+		word[i] = char(int(word[i]) + key);
 	
 
 	}
-	cout << "text after encryption: " << word_encrypted << endl;
+	return word;
 
 	
 }
  
-void decrypt(string word_encrypted) {
-	string un_encrypted = "";
-	int formula = 0;
-	for (int k = 0; k < word_encrypted.length(); k++)
+string decrypt(string word , short key ) {
+	/*string un_encrypted = "";
+	int formula = 0;*/
+	for (int k = 0; k < word.length(); k++)
 	{
-		int current_char_to_ascii_value = word_encrypted[k]; // converted current char to ascii value
-		formula = current_char_to_ascii_value - 2; // apllied the eq
+		//int current_char_to_ascii_value = word_encrypted[k]; // converted current char to ascii value
+		//formula = current_char_to_ascii_value - 2; // apllied the eq
 
-		un_encrypted += char(formula); // convert the result into char again and add it 
+		//un_encrypted += char(formula); // convert the result into char again and add it 
+		word[k] = char(int(word[k]) - 2);
+
 
 	}
-	cout << "text after decryption: " << un_encrypted << endl;
+	return word;
 }
 
 
 int main() {
+	/// time for improvment
+const short key = 2;
 	string word = input(); // to ask about input one time
-	string word_encrypted = ""; // intialize
-	before(word);
-	encrypt(word , word_encrypted);
-	decrypt(word_encrypted);
+	string encryption = encrypt(word, key);
+	string  without_encryption = decrypt(encryption, key);
+	
+	cout << endl;
+	cout << "text before encryption: " << word << endl;
+	cout<<"the text after encryption: " << encryption <<endl;
+	cout << "text after decryption: " << without_encryption << endl;
+	
+
 }
