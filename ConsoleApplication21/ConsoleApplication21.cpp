@@ -1,95 +1,69 @@
-#include <iostream>
+#include <string>
 #include <ctime>
-#include <cstdlib>
+#include<cstdlib>
+#include <iostream>
 using namespace std;
-// first ask user to input how many keys he wanna
-// second make random function
-// third make for loop from 1 to inputed value and generate n lines of random things
-enum enCharType { SamallLetter = 1, CapitalLetter = 2, SpecialCharacter = 3, Digit = 4 };
-// input the num of keys 
+// function to make random
+// switch with ASCII range values 
+enum entype { capital = 1, small = 2, special = 3, nums = 4 };
 int input() {
 	int n;
 	do {
-		cout << "enter how many keys you want: ";
+		cout << "enter how many keys you wanna: ";
 		cin >> n;
-
 	} while (1 > n);
 	return n;
 }
-// generate random value
-int RandomNumber(int from, int to) {
+int random(int from, int to) {
 	int random_shit = rand() % (to - from + 1) + from;
 	return random_shit;
-
 }
-// get random things based on enum input 
-char GetRandomCharacter(enCharType CharType)
+char generate_shits(entype type) {
+
+	switch (type) {
+	case entype::capital:
+		return  char(random(65, 90));
+
+
+	case entype::small:
+		return char(random(97, 122));
+
+	case entype::special:
+		return char(random(33, 47));
+
+
+	case entype::nums:
+		return char(random(48, 57));
+	default:
+		return 0;
+
+	}
+}
+///////////////////////////////////////////////////////////////
+string generate_unit(entype type,short length) {
+	string unit = "";
+	for (int i = 0; i < length; i++) {
+		unit += generate_shits(type);
+	}
+	return unit;
+}
+
+string four_units() {
+	string total_units = "";
+	total_units = total_units + generate_unit(entype::capital, 4)
+		+ "-" + generate_unit(entype::small, 4) + "-" + generate_unit(entype::capital, 4)
+		+ "-" + generate_unit(entype::capital, 4);
+	return total_units;
+}
+
+void final_output(int n ) {
+	for (int o = 0; o < n; o++) {
+		cout << "KEY" << "[" << o+1 << "]: ";
+		cout << four_units() << endl;
+	}
+}
+int main()
 {
-    switch (CharType)
-    {
-    case enCharType::SamallLetter:
-    {
-        // Generate a random lowercase letter (ASCII: 97 'a' to 122 'z').
-        return char(RandomNumber(97, 122));
-        break; // break is not necessary after return.
-    }
-    case enCharType::CapitalLetter:
-    {
-        // Generate a random uppercase letter (ASCII: 65 'A' to 90 'Z').
-        return char(RandomNumber(65, 90));
-        break;
-    }
-    case enCharType::SpecialCharacter:
-    {
-        // Generate a random special character (ASCII: 33 '!' to 47 '/').
-        return char(RandomNumber(33, 47));
-        break;
-    }
-    case enCharType::Digit:
-    {
-        // Generate a random digit (ASCII: 48 '0' to 57 '9').
-        return char(RandomNumber(48, 57));
-        break;
-    }
-    }
-    // If no valid type is provided, return a null character.
-    return '\0';
-}
-
-// call random geneatror to make word 
-string random_generator(enCharType type) {
-    //geneate one word with 4 letters 
-	string res = "";
-	for (int r = 1; r <= 4; r++) {
-		res += GetRandomCharacter(type); //WXCY
-
-		//OEDF
-	}
-	return res;
-}
-
-void key() {
-    string Key = "";
-    Key = random_generator(enCharType::CapitalLetter) + "-";
-    Key = Key + random_generator(enCharType::CapitalLetter) + "-";
-    Key = Key + random_generator(enCharType::CapitalLetter) + "-";
-    Key = Key + random_generator(enCharType::CapitalLetter);
-    cout << Key;
-}
-
-void generated_keys(int n) {
-	int count = 0;
-	
-	for (int i = 1; i <= n; i++) {
-		count++;
-		cout <<"Key " << "[ " << count << " ]: ";
-        key();
-        cout << endl;
-		
-	}
-}
-
-int main() {
 	srand((unsigned)time(NULL));
-	generated_keys(input());
+	final_output(input());
 }
