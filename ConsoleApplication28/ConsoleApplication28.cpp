@@ -1,20 +1,57 @@
-// ConsoleApplication28.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
-
-int main()
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+int random(int from, int to) {
+	int random = rand() % (to - from + 1) + from;
+	return random;
+}
+// array 1 
+void array_filled_with_random(int arr[100], int& length)
 {
-    std::cout << "Hello World!\n";
+	cout << "enter length ";
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		arr[i] = random(1, 100);
+}
+void array1_output(int arr[100], int length)
+{
+	cout << "array 1 output ";
+	for (int o1 = 0; o1 < length; o1++)
+		cout << arr[o1] << " ";
+
+	cout << endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+///array 2
+void array2_filled_with_array1(int arr[100],int arr2[100], int length)
+{
+	for (int a2 = 0; a2 < length; a2++)
+		arr2[a2] = arr[a2];
+}
+
+void array2_output(int arr2[100], int length)
+{
+	cout << "array 2 output ";
+	for (int o = 0; o < length; o++)
+		cout << arr2[o] << " ";
+}
+
+int main() {
+	srand((unsigned)time(NULL));
+
+	int arr[100];
+	int arr2[100];
+	int length = 0;
+	array_filled_with_random(arr, length);
+	cout << endl;
+	array1_output(arr, length);
+	cout << endl;
+	array2_filled_with_array1(arr, arr2, length);
+	cout << endl;
+	array2_output( arr2, length);
+	cout << endl;
+
+
+}
