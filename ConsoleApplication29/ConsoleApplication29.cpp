@@ -1,20 +1,73 @@
-// ConsoleApplication29.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
-
-int main()
+#include <ctime>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+int random(int from, int to) {
+	int random = rand() % (to - from + 1) + from;
+	return random;
+}
+// array 1 
+void array_filled_with_random(int arr[100], int& length)
 {
-    std::cout << "Hello World!\n";
+	cout << "enter length ";
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		arr[i] = random(1, 100);
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void prime(int arr[100], int arr2[100], int length, int& count) {
+	count = 0;
+	for (int i = 0; i < length; i++) {
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+		int num = arr[i];
+		if (num <= 1) continue; 
+
+		bool isPrime = true;
+		for (int p = 2; p * p <= num; p++) {
+			if (num % p == 0) {
+				isPrime = false;
+				break;
+			}
+		}
+
+		if (isPrime) {
+			arr2[count] = num;
+			count++;
+		}
+	}
+}
+
+///array 2
+
+
+void array_output(int arr[100], int length)
+{
+
+	for (int o = 0; o < length; o++)
+		cout << arr[o] << " ";
+}
+
+int main() {
+	srand((unsigned)time(NULL));
+
+	int arr[100];
+	int arr2[100];
+	int length = 0;
+	int count = 0; 
+	array_filled_with_random(arr, length);
+	cout << '\n';
+	// array 1 output
+	cout << "array 1 output ";
+	array_output(arr, length);
+	cout << endl;
+	prime( arr, arr2,  length , count );
+	cout << endl;
+	
+
+	cout << "array 2 output ";
+	array_output(arr2, count);
+	cout << endl;
+
+
+}
