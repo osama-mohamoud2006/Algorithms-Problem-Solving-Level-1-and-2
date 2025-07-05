@@ -7,25 +7,27 @@ int random(int from , int to ) {
 	return random; 
  }
 
-// fill array 1 with random values
-void fill_array1(int arr1[100], int &length) {
-	cout << "enter length ";
-	cin >> length;
+int input_length() {
+	int length; 
+	do {
+		cout << "enter length ";
+		cin >> length;
+		if (0 >= length || 100 < length) cout << "\nplease enter again! " << endl;
+	} while (0 >= length || 100 < length);
+	return length; 
+}
+// fill any  array  with random values
+void fill_array(int anyarr[100], int length) {
+	
 	for (int a1 = 0; a1 < length; a1++)
 	
-		 arr1[a1] = random(1,100);
+		 anyarr[a1] = random(1,100);
 	cout << endl;
 }
-// fill array 2 with random values 
-void fill_array2(int arr2[100], int length) {
-	for (int a2 = 0; a2 < length; a2++)
 
-		arr2[a2] = random(1, 100);
-	cout << endl;
-}
-void sum_of_2_arrays(int arr1[100],int arr2[100],int arrs[100], int length) {
+void sum_of_2_arrays(int anyarr1[100],int anyarr2[100],int sumarr[100], int length) {
 	for (int s = 0; s < length; s++) {
-		arrs[s] = arr1[s] + arr2[s];
+		sumarr[s] = anyarr1[s] + anyarr2[s];
 	}
 
 }
@@ -36,15 +38,16 @@ void output_any_Array(int anyarr[100], int length) {
 }
 
 int main() {
-	int length = 0;
+	srand((unsigned)time(NULL));
+	int length = input_length();
 	int arr1[100];
 	int arr2[100];
 	int arrs[100];
-	fill_array1( arr1,  length);
+	fill_array( arr1,  length); // fill array 1 
 	cout << "the array 1 elements: ";
 	output_any_Array(arr1, length); // output array1
 	
-	fill_array2(arr2, length);
+	fill_array(arr2, length);  // fill array 2 
 	cout << "the array 2 elements: ";
 	output_any_Array(arr2, length); // output array2
 
