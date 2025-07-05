@@ -14,28 +14,19 @@ void array_filled_with_random(int arr[100], int& length)
 	for (int i = 0; i < length; i++)
 		arr[i] = random(1, 100);
 }
-void array1_output(int arr[100], int length)
-{
-	cout << "array 1 output ";
-	for (int o1 = 0; o1 < length; o1++)
-		cout << arr[o1] << " ";
-
-	cout << endl;
-}
-
 
 ///array 2
-void array2_filled_with_array1(int arr[100],int arr2[100], int length)
+void copy(int arr[100],int arr2[100], int length)
 {
 	for (int a2 = 0; a2 < length; a2++)
 		arr2[a2] = arr[a2];
 }
 
-void array2_output(int arr2[100], int length)
+void array_output(int arr[100], int length)
 {
-	cout << "array 2 output ";
+	
 	for (int o = 0; o < length; o++)
-		cout << arr2[o] << " ";
+		cout << arr[o] << " ";
 }
 
 int main() {
@@ -45,12 +36,15 @@ int main() {
 	int arr2[100];
 	int length = 0;
 	array_filled_with_random(arr, length);
+	cout << '\n';
+	// array 1 output
+	cout << "array 1 output ";
+	array_output(arr, length);
 	cout << endl;
-	array1_output(arr, length);
-	cout << endl;
-	array2_filled_with_array1(arr, arr2, length);
-	cout << endl;
-	array2_output( arr2, length);
+	copy(arr, arr2, length);
+	cout << '\n';
+	cout << "array 2 output ";
+	array_output( arr2, length);
 	cout << endl;
 
 
