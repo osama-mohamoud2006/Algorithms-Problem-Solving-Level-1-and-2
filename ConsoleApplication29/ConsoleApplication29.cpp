@@ -3,9 +3,18 @@
 #include <cstdlib>
 #include <cmath>
 using namespace std;
+enum enprimeornor{prime  =1 , notprime = 2};
 int random(int from, int to) {
 	int random = rand() % (to - from + 1) + from;
 	return random;
+}
+enprimeornor prime_or_not(int number) {
+	if (number <= 1) return enprimeornor::notprime;
+	int untill = number / 2;
+	for (int i = 2; i <= untill; i++) {
+		if (number % i == 0) return enprimeornor::notprime;
+	}
+	return enprimeornor::prime;
 }
 // array 1 
 void array_filled_with_random(int arr[100], int& length)
@@ -16,26 +25,13 @@ void array_filled_with_random(int arr[100], int& length)
 		arr[i] = random(1, 100);
 }
 
-void prime(int arr[100], int arr2[100], int length, int& count) {
-	count = 0;
-	for (int i = 0; i < length; i++) {
-
-		int num = arr[i];
-		if (num <= 1) continue; 
-
-		bool isPrime = true;
-		for (int p = 2; p * p <= num; p++) {
-			if (num % p == 0) {
-				isPrime = false;
-				break;
-			}
-		}
-
-		if (isPrime) {
-			arr2[count] = num;
+void primeout(int arr[100], int arr2[100], int length, int& count) {
+	count = 0; 
+	for (int a1 = 0; a1 < length; a1++)
+		if (prime_or_not(arr[a1]) == enprimeornor::prime) {
+			arr2[count] = arr[a1];
 			count++;
 		}
-	}
 }
 
 ///array 2
@@ -49,6 +45,7 @@ void array_output(int arr[100], int length)
 }
 
 int main() {
+	enprimeornor type;
 	srand((unsigned)time(NULL));
 
 	int arr[100];
@@ -61,7 +58,7 @@ int main() {
 	cout << "array 1 output ";
 	array_output(arr, length);
 	cout << endl;
-	prime( arr, arr2,  length , count );
+	primeout(arr, arr2,  length , count );
 	cout << endl;
 	
 
