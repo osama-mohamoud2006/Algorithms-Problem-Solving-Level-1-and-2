@@ -5,66 +5,50 @@
 using namespace std;
 enum enprimeornor{prime  =1 , notprime = 2};
 int random(int from, int to) {
-	int random = rand() % (to - from + 1) + from;
-	return random;
+	return rand() % (to - from + 1) + from;
 }
-enprimeornor prime_or_not(int number) {
+enprimeornor check_prime(int number) {
 	if (number <= 1) return enprimeornor::notprime;
-	int untill = number / 2;
-	for (int i = 2; i <= untill; i++) {
-		if (number % i == 0) return enprimeornor::notprime;
-	}
+	int untill = number / 2; //7
+	for (int i  = 2; i <= untill; i++)
+		if (number % i == 0) {
+			return enprimeornor::notprime;
+		}
 	return enprimeornor::prime;
 }
-// array 1 
-void array_filled_with_random(int arr[100], int& length)
-{
-	cout << "enter length ";
+void fill_array_with_random_values(int arr[100],int &length) {
+	cout << "\n enter length: ";
 	cin >> length;
 	for (int i = 0; i < length; i++)
 		arr[i] = random(1, 100);
+	cout << "\n";
 }
-
-void primeout(int arr[100], int arr2[100], int length, int& count) {
-	count = 0; 
-	for (int a1 = 0; a1 < length; a1++)
-		if (prime_or_not(arr[a1]) == enprimeornor::prime) {
-			arr2[count] = arr[a1];
+void copyToArray2(int arr[100],int arr2[100], int length, int& count) {
+	count = 0;
+	for (int i2 = 0; i2 < length; i2++)
+		if (check_prime(arr[i2]) == enprimeornor::prime) {
+			arr2[count] = arr[i2];
 			count++;
 		}
+
+cout << "\n";
 }
-
-///array 2
-
-
-void array_output(int arr[100], int length)
-{
-
+void output(int Anyarr[100], int length) {
 	for (int o = 0; o < length; o++)
-		cout << arr[o] << " ";
+		cout << Anyarr[o] << " ";
+cout << "\n";
 }
 
 int main() {
-	enprimeornor type;
 	srand((unsigned)time(NULL));
-
 	int arr[100];
 	int arr2[100];
 	int length = 0;
-	int count = 0; 
-	array_filled_with_random(arr, length);
-	cout << '\n';
-	// array 1 output
-	cout << "array 1 output ";
-	array_output(arr, length);
-	cout << endl;
-	primeout(arr, arr2,  length , count );
-	cout << endl;
-	
-
-	cout << "array 2 output ";
-	array_output(arr2, count);
-	cout << endl;
-
-
+	int count = 0;
+	fill_array_with_random_values(arr, length);
+	cout << "array elements: ";
+	output(arr, length);
+	copyToArray2(arr,  arr2, length, count);
+	cout << "the prime nums are: ";
+	output(arr2, count);
 }
