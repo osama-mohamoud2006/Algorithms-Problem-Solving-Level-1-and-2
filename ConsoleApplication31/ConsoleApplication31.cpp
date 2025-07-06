@@ -48,7 +48,7 @@ void output(int arr[100], int length) {
 int main() {
 	 srand( (unsigned) time(NULL) );
 	int arr[100];
-	int lengthi = length(); 
+	int lengthi = length();  // 10 
 	fill_array(arr, lengthi);
 	cout << endl;
 	cout << "the original array: ";
