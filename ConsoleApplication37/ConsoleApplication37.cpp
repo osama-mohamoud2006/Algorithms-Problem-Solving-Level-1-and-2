@@ -27,7 +27,6 @@ void fill_array_with_random(int arr[100], int length ) {
 void fill_array_according_to_entered(int number_from_array1 , int arr2[100], int &length2) {
 	
 
-
 	length2++;
 	arr2[length2 - 1] = number_from_array1;
 
@@ -37,10 +36,11 @@ void fill_array_according_to_entered(int number_from_array1 , int arr2[100], int
 
 void arr1_to_arr2_copy(int length ,int arr[100], int arr2[100], int &length2 ) {
 	
-	for (int a1 = 0; a1 < length; a1++) 
-	
-		fill_array_according_to_entered(arr[a1], arr2, length2);
-
+	for (int a1 = 0; a1 < length; a1++) {
+		
+			fill_array_according_to_entered(arr[a1], arr2, length2);
+		
+	}
 }
 
 
