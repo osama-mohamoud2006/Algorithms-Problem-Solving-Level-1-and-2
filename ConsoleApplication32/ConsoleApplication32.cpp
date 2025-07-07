@@ -25,12 +25,13 @@ cout << endl;
 }
 // copy to array 2 
 void copy_to_array2(int arr[100], int arr2[100] , int length) {
+	
 	//int count = 0;
 	//solution 1
 		//for (int j = length - 1; j >= 0; j--) {
 
-		//	arr2[j] = arr[count]; //arr[9]= arr[0]
-		//	                      // arr[9]= 1
+		//	arr2[j] = arr[count]; //arr2[9]= arr[0]
+		//	                      // arr2[9]= 1
 		//	count++;
 		//}
 		
