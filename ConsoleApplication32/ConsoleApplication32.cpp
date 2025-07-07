@@ -1,20 +1,66 @@
-// ConsoleApplication32.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <ctime>
 #include <iostream>
+#include<cstdlib>
+using namespace std;
+// fill array with elements from 1 to 100 ( randomly) 
+short input_Length() {
+	short l; 
+	do {
+		cout << "enter length: ";
+		cin >> l;
+	} while (0 >= l);
+	return l;
+cout << endl;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+}
+int random(int from, int to) {
+	return rand() % (to - from + 1) + from;
+	cout << endl;
+
+}
+void full_array_with_random(int arr[100], int length) {
+	for (int i = 0; i < length; i++)
+		arr[i] = random(1, 100);
+cout << endl;
+}
+// copy to array 2 
+void copy_to_array2(int arr[100], int arr2[100] , int length) {
+	//int count = 0;
+	//solution 1
+		//for (int j = length - 1; j >= 0; j--) {
+
+		//	arr2[j] = arr[count]; //arr[9]= arr[0]
+		//	                      // arr[9]= 1
+		//	count++;
+		//}
+		
+//===================================================================================//
+	///////solution 2
+	///arr[0] = arr[10]
+	//note: length always in arr decreased by 1
+	for (int k = 0; k < length; k++)
+		arr2[k] = arr[( length-1) -k ];
+
+	
+cout<<"\n";
+}
+//output for any array 
+void output(int Anyarr[100], int length) {
+	for (int o = 0; o < length; o++)
+		cout << Anyarr[o] << " ";
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+int main() {
+	int length = input_Length();
+	int arr[100];
+	int arr2[100];
+	full_array_with_random(arr, length);
+	cout << "the original array ";
+	output(arr, length);
+	cout << '\n';
+	
+	copy_to_array2(arr, arr2, length);
+	cout << "after copied " ;
+	output(arr2, length);
+	cout << '\n';
+}
