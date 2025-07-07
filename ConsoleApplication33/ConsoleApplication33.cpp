@@ -14,7 +14,7 @@ int input_length() {
 }
 int random(int from, int to) {
 	return rand() % (to - from + 1) + from;
-	cout << '\n';
+	
 }
 string get_unit_of_key(int length_of_unit) {
 	string unit_of_key = "";
