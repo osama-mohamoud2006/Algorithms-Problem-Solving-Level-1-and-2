@@ -49,8 +49,8 @@ int main() {
 	output(arr, length);
 
 	int num_to_search = input("\n \nenter the number you want to search: ");
-	if (foundornot(num_to_search, arr, length)) cout << "yes,the number was found! " << endl;
-	else cout << "number wasnot found! " << endl;
+	if (!foundornot(num_to_search, arr, length)) cout << "number wasnot found! " << endl;
+	else cout << "yes,the number was found! " << endl;
 
 
 
