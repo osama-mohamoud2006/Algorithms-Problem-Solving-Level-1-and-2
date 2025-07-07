@@ -23,17 +23,13 @@ void array_filled_with_random_values(int arr[::size], int length) {
 cout << '\n';
 }
 //number to search 
-void number_searching(int num_to_search, int arr[::size] , int length ) {
-	bool found = false; 
+short number_searching(int num_to_search, int arr[::size] , int length ) {
+	
 	cout << "\nthe number you entered to search is: " << num_to_search << '\n';
-	for (int s = 0; s < length; s++) {
-		if (arr[s] == num_to_search) {
-			cout << "number found at position: " << s << '\n' << "the number founded its order: " << s + 1 << endl;
-			found = true;
-		}
-	}
-	if (found == false) cout << "The number wasn't found :-( " << endl;
+	for (int s = 0; s < length; s++) 
+		if (arr[s] == num_to_search) return s;
 
+return -1;
 }
 void output(int arr[::size], int length) {
 	cout << "\nArray elements is: ";
@@ -41,6 +37,7 @@ void output(int arr[::size], int length) {
 		cout << arr[o] << " ";
 }
 int main() {
+	srand((unsigned)time(NULL));
 	int arr[::size];
 	int length = input("enter the length of array: ");
 	
@@ -48,7 +45,13 @@ int main() {
 	output(arr, length);
 
 	int num_to_search = input("\n \nenter the number you want to search: ");
-	number_searching(num_to_search, arr, length);
+	short found = number_searching(num_to_search, arr, length);
+	if (found == -1) {
+		cout << "Not found :(" << endl;
+	}
+	else {
+		cout << "number found at position: " << found << '\n' << "the number founded its order: " << found + 1 << endl;
+	}
 
 
 
