@@ -35,7 +35,7 @@ void fill_array_according_to_entered(int number_from_array1 , int arr2[100], int
 
 }
 
-void arr1_to_arr2_copy(int length ,int arr[100], int arr2[100], int length2 ) {
+void arr1_to_arr2_copy(int length ,int arr[100], int arr2[100], int &length2 ) {
 	
 	for (int a1 = 0; a1 < length; a1++) 
 	
@@ -53,6 +53,9 @@ void output(int arr[100], int length) {
 }
 
 int main() {
+
+	srand((unsigned)time(NULL));
+
 	int arr[100];
 	int arr2[100]; // nums came from array1 
 	int length = enter_postive_number("\nenter length: ");
