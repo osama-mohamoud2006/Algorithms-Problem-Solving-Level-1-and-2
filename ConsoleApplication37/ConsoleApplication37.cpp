@@ -24,25 +24,25 @@ void fill_array_with_random(int arr[100], int length ) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void fill_array_according_to_entered(int number , int arr2[100], int& count) {
+void fill_array_according_to_entered(int number , int arr2[100], int &length2) {
 	
 	/// number takes arr elements
 
-	count++;
-	arr2[count - 1] = number;
+	length2++;
+	arr2[length2 - 1] = number;
 
 
 
 }
 
-void _add(int length ,int arr[100], int arr2[100], int &count ) {
+void arr1_to_arr2_copy(int length ,int arr[100], int arr2[100], int length2 ) {
 	
 	for (int a = 0; a < length; a++) 
 		
 	
 	
 		
-		fill_array_according_to_entered(arr[a], arr2, count);
+		fill_array_according_to_entered(arr[a], arr2, length2);
 	
 
 
@@ -54,7 +54,7 @@ void _add(int length ,int arr[100], int arr2[100], int &count ) {
 
 void output(int arr[100], int length) {
 	
-	cout << "\nso array elements are: ";
+	
 	for (int o = 0; o < length; o++)
 		cout << arr[o] << " ";
 	cout << '\n';
@@ -63,14 +63,14 @@ void output(int arr[100], int length) {
 int main() {
 	int arr[100];
 	int arr2[100];
-	int count = 0;
+	int length2 = 0;
 	int length = enter_postive_number("\nenter length: ");
 	fill_array_with_random(arr, length);
+	cout << "\nso original  array elements are: ";
 	output(arr, length);
-	_add(length, arr, arr2, count);
+
+	arr1_to_arr2_copy(length, arr, arr2, length2);
+	cout << "\nso coppied array elements are: ";
 	output(arr2, length );
-//
-//	do_you_want_to_add(arr, count);
-//	cout << endl;
-//	output(arr, count);
+
 }
