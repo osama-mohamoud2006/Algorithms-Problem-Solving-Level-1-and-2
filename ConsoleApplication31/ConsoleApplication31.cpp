@@ -25,16 +25,10 @@ void fill_Array_untill_N(int arr[100], int length ) {
 	cout << "\n";
 }
 void shullfule(int arr[100], int length) {
-	int index1 = 0;
-	int index2 = 0;
-	for (int a = 0; a < length; a++) { // swap to make sullfule , random to take random values from 1 untill length
-		index1 = arr[random(1, length) - 1];
-		index2 = arr[random(1, length) - 1];
-		while (index1 == index2) {
-			index2 = arr[random(1, length) - 1];
-		}
-		swap(index1, index2);
-	}
+	
+	for (int a = 0; a < length; a++) // swap to make sullfule , random to take random values from 1 untill length
+		swap(arr[random(1, length) - 1], arr[random(1, length) - 1]);
+	
 cout << "\n";
 }
 void output(int arr[100] , int length ) {
