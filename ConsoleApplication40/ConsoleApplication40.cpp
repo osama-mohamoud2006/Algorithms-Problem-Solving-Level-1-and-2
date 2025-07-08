@@ -1,4 +1,4 @@
-// use fill array function to  fill only odd nums to array 2
+// use fill array function to  fill only distinct nums to array 2
 #include <iostream>
 
 using namespace std;
