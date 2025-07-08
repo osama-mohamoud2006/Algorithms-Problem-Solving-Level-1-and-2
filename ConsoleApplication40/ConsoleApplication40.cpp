@@ -1,7 +1,6 @@
 // use fill array function to  fill only odd nums to array 2
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
+
 using namespace std;
 
 void hardcoded_array_(int arr[10], int length) {
@@ -21,6 +20,15 @@ void hardcoded_array_(int arr[10], int length) {
 	arr[9] = 90;
 
 }
+int check_is_number_exist(int number_to_check, int arr[10], int length) {
+	for (int k = 0; k < length; k++) {
+		if (arr[k] == number_to_check) return k; // return index
+	}
+		return -1;
+}
+bool is_number_exist_really(int number_to_check, int arr[10], int length) {
+	return check_is_number_exist(number_to_check, arr, length) != -1; // then it is true 
+}
 void fill_array2_elements(int number, int& length2, int arr2[10]) {
 	length2++;
 	arr2[length2 - 1] = number;
@@ -30,15 +38,18 @@ void fill_array_with_distict_values(int arr[10], int arr2[10], int length, int& 
 
 	int number_before = 0;
 	for (int d = 0; d < length; d++) {
-		if (arr[d] == number_before) continue; // is 10 ==0 (NO)  
-// is 10 ==10 (yes) the it will skip this number and add+1 to d so will continue loop 
-// 		   // is 20 ==20 (yes) the it will skip this number and add+1 to d so will continue loop 
-		// is 20 == 10 (NO)
-		fill_array2_elements(arr[d], length2, arr2); // then number=10
-		                                                     // the number =20  
-		number_before = arr[d]; // number_before = 10
-		                        //  number_before = 20
-
+//		if (arr[d] == number_before) continue; // is 10 ==0 (NO)  
+//// is 10 ==10 (yes) the it will skip this number and add+1 to d so will continue loop 
+//// 		   // is 20 ==20 (yes) the it will skip this number and add+1 to d so will continue loop 
+//		// is 20 == 10 (NO)
+//		fill_array2_elements(arr[d], length2, arr2); // then number=10
+//		                                                     // the number =20  
+//		number_before = arr[d]; // number_before = 10
+//		                        //  number_before = 20
+		number_before = arr[d];
+		if (!is_number_exist_really(number_before, arr2, length) ) {
+			fill_array2_elements(arr[d], length2, arr2);
+		}
 	}
 	 
 
@@ -52,7 +63,6 @@ void output_any_array(int Anyarr[100], int length) {
 }
 
 int main() {
-	srand((unsigned)time(NULL));
 	int length =10;
 	int length2 = 0;
 	int arr[10], arr2[10];
