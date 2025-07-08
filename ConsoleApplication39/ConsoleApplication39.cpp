@@ -3,7 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 using namespace std;
-
+enum prime_or_not { prime = 1, notprime = 2 };
 int random(int from, int to) {
 	return rand() % (to - from + 1) + from;
 }
@@ -26,13 +26,13 @@ void fill_array2_elements(int number, int& length2, int arr2[100]) {
 
 }
 int check_prime(int number) {
-	if (number <= 1) return 0;
+	if (number <= 1) return prime_or_not::notprime;
 	int untill = number / 2; // 10 /2 = 5 
 	for (int c = 2; c <= untill; c++) {
-		if (number % c == 0) return 0;
+		if (number % c == 0) return prime_or_not::notprime;
 
 	}
-	return number;
+	return prime_or_not::prime;
 
 
 
@@ -42,11 +42,15 @@ void fill_array_with_odd_values(int arr[100], int arr2[100], int length, int& le
 	// arr2[100] is target array 
 	// length is original array length 
 	int prime_to_fill = 0;
-	for (int p = 0; p < length; p++) {
-		prime_to_fill = check_prime(arr[p]);
+	for (int p = 0; p < length; p++) 
+		if(check_prime(arr[p] ) == prime_or_not::prime)
+		  fill_array2_elements(arr[p], length2, arr2);
+		/*prime_to_fill = check_prime(arr[p]);
 		if (prime_to_fill == 0) continue;
-		else  fill_array2_elements(prime_to_fill, length2, arr2);
-	}
+		else  fill_array2_elements(prime_to_fill, length2, arr2);*/
+
+
+	
 }
 void output_any_array(int Anyarr[100], int length) {
 	cout << "\n";
@@ -68,7 +72,7 @@ int main() {
 	fill_array_with_odd_values(arr, arr2, length, length2);
 	cout << endl;
 	cout << "\n";
-	cout << "only odd nums: ";
+	cout << "only prime nums: ";
 	output_any_array(arr2, length2);
 	cout << "\n";
 
