@@ -11,7 +11,7 @@ void fill_array(int arr[100], int& length) {
 	for (int i = 0; i < length; i++)
 		arr[i] = random(1, 100);
 }
-int count_odd_nums(int arr[100], int length) {
+int count_even_nums(int arr[100], int length) {
 	int count = 0;
 	for (int c = 0; c < length; c++) {
 		if (arr[c] % 2 == 0) count++;
@@ -30,6 +30,6 @@ int main() {
 	cout << "\nThe array elements are: ";
 	print(arr, length);
 
-	cout << "\n the count of even numbers are: " << count_odd_nums(arr, length) << endl;
+	cout << "\n the count of even numbers are: " << count_even_nums(arr, length) << endl;
 
 }
