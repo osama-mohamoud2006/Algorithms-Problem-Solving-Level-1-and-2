@@ -1,20 +1,35 @@
-// ConsoleApplication43.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
-
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+int random(int from, int to) {
+	return rand() % (to - from + 1) + from;
 }
+void fill_array(int arr[100], int& length) {
+	cout << "Enter length: ";
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		arr[i] = random(1, 100);
+}
+int count_odd_nums(int arr[100], int length) {
+	int count = 0;
+	for (int c = 0; c < length; c++) {
+		if (arr[c] % 2 == 0) count++;
+	}
+	return count;
+}
+void print(int arr[100], int length) {
+	for (int o = 0; o < length; o++)
+		cout << arr[o] << " ";
+}
+int main() {
+	srand((unsigned)time(NULL));
+	int length = 0;
+	int arr[100];
+	fill_array(arr, length);
+	cout << "\nThe array elements are: ";
+	print(arr, length);
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+	cout << "\n the count of even numbers are: " << count_odd_nums(arr, length) << endl;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+}
