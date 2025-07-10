@@ -14,16 +14,28 @@ double my_round(float n) {
 	double fraction = (number_with_fraction) - (number_without_fraction); // -0.7
 
 	// number less than 5 is weak number,so we donot make round
-	if (fraction > 0.0) { // fraction  is postive 
-		if (abs(fraction) < 0.5) return  number_without_fraction;
-		if (abs(fraction) >= 0.5) return  number_without_fraction + 1;
+	// ///////////first method ////////////////
+	
+	//if (fraction > 0.0) { // fraction  is postive 
+	//	if (abs(fraction) < 0.5) return  number_without_fraction;
+	//	if (abs(fraction) >= 0.5) return  number_without_fraction + 1;
+	//}
+	//if (fraction < 0.0) { // fraction is negative 
+	//	
+	//	if (abs(fraction) < 0.5) return abs(number_without_fraction) * -1;
+	//	else if(abs(fraction) >= 0.5) return  ( abs(number_without_fraction) +1 )*-1 ;
+	//}
+	//if (fraction == 0) return number_without_fraction;
+
+	//second method
+	if (abs(fraction) >= 0.5) { // strong number 
+		//postive 
+		if (number_without_fraction > 0) number_without_fraction++;
+		//negative 
+		else return number_without_fraction-1 ;
 	}
-	if (fraction < 0.0) { // fraction is negative 
-		
-		if (abs(fraction) < 0.5) return abs(number_without_fraction) * -1;
-		else if(abs(fraction) >= 0.5) return  ( abs(number_without_fraction) +1 )*-1 ;
-	}
-	if (fraction == 0) return number_without_fraction;
+	else return number_without_fraction;
+
 }
 int main()
 {
