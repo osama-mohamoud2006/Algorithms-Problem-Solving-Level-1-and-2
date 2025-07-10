@@ -8,7 +8,7 @@ float enter_number() {
 	return n;
 }
 
-double my_round_function(float n) {
+double my_round(float n) {
 	float number_with_fraction = n; //-10.7
 	int number_without_fraction = int(n); // -10 
 	double fraction = (number_with_fraction) - (number_without_fraction); // -0.7
@@ -29,7 +29,7 @@ int main()
 {
 
 	float n = enter_number();
-	cout << "\nthe round function i made: " << my_round_function(n);
+	cout << "\nthe round function i made: " << my_round(n);
 	cout << "\n the cpp round: " << round(n)<<endl;
 	
 }
