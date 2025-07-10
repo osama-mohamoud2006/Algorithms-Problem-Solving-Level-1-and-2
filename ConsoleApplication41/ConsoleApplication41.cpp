@@ -15,39 +15,20 @@ void hard_coded_filled_array(int arr[6], int& length) {
 
 }
 
-//void fill_array2(int number, int arr2[10], int& length2) {
-//	// first index is 0 
-//	length2++; // 0+1 = 1
-//	arr2[length2 - 1] = number;  //1-1=0
-//
-//}
+bool  check_if_it_is_palindrom(int arr[6], int length) {
 
-void reverse_fill (int arr[6], int length, int arr2[6], int length2) {
-
-	for (int f = 0; f <length; f++) 
-	 arr2[f] = 	arr[(length - 1) - f] ;
-			
-		
-	
-
-}
-bool check_if_it_is_palindrom(int arr[6], int length, int arr2[6], int length2) {
-	
-
-	for (int j = 0; j < length; j++) {
-
-		
-			if (arr[j] != arr2[j]) return false;
-		
-		
-		
+	for (int f = 0; f < length; f++) {
+		if (arr[(length - 1) - f] != arr[f]) return false;
 	}
 	
 	return true;
-}
-void output_palindrom_result(int arr[6], int length, int arr2[6], int length2) {
+		
 	
-	if (check_if_it_is_palindrom(arr, length, arr2, length2) == true) cout << "\nyes array is palindrom! ";
+
+}
+void output_palindrom_result(int arr[6], int length) {
+	
+	if (check_if_it_is_palindrom(arr, length) == true) cout << "\nyes array is palindrom! ";
 	else cout << "\nNo array isn't palindrom! ";
 }
 
@@ -68,11 +49,9 @@ int main() {
 	cout << endl;
 	
 
-	reverse_fill( arr,  length, arr2, length2);
-	cout << "the reversed array: ";
-	output(arr2, length2);
-	cout << endl;
-	output_palindrom_result(arr, length, arr2, length2);
+	
+
+	output_palindrom_result(arr, length);
 	
 	
 	cout << endl;
