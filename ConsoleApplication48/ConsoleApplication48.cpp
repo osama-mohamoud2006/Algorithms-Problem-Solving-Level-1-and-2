@@ -29,7 +29,7 @@ equal to the value passed as the argument.*/
 	if (FLOAT_part == 0.0)return 0;
 
 }
-int main() {
+-int main() {
 	float  input = input_number();
 	cout << "\nmy floor function "<<floor_function(input);
 	cout << "\nCPP floor: " << floor(input)<<endl;
