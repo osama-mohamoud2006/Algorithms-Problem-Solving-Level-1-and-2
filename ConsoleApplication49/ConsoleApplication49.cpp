@@ -15,18 +15,32 @@ double ceil_function(float n) {
 	float fraction = FLOAT_part - INT_part_number; //0.7
 
 	
-	if (n > 0.0) {  //postive 
-		if (fraction == 0.0 ) return INT_part_number;
-		else return  (FLOAT_part - fraction) + 1;
+	//if (n > 0.0) {  //postive 
+	//	if (fraction == 0.0 ) return INT_part_number;
+	//	else return  (FLOAT_part - fraction) + 1;
+	//}
+	//if (0.0 > n) { // negative 
+
+	//	if ( fraction == -0.0) return INT_part_number;
+	//	else return (abs(FLOAT_part - fraction) )*-1;
+	//}
+
+
+	//if (FLOAT_part == 0.0)return 0;
+	
+	// another solution 
+	if ( abs(fraction) > 0) {
+		//postive
+		if (n > 0) return int(n) + 1;
+		//negative 
+		else return int(n);
 	}
-	if (0.0 > n) { // negative 
+	// 
+	else return int(n);
 
-		if ( fraction == -0.0) return INT_part_number;
-		else return (abs(FLOAT_part - fraction) )*-1;
-	}
+	
+	
 
-
-	if (FLOAT_part == 0.0)return 0;
 
 }
 int main() {
