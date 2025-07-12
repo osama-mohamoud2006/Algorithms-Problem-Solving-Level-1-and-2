@@ -1,29 +1,55 @@
 ﻿#include<iostream>
 #include <ctime>
 #include<cstdlib>
-#include <stdlib.h>; // for clear screen
+#include <stdlib.h> // for clear screen
+#include <windows.h> //for sound 
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 using namespace std;
 
 struct stcount_wins_and_losses {
 	int user_wins = 0;
 	int computer_wins = 0;
 	int draws = 0;
-
+	/*bool user_win = false;
+	bool computer_win = false;*/
 
 };
-enum enScreen_color { black = 1, red = 2, yellow = 3, green = 4 };
+enum enScreen_color { black = 1, red = 2, yellow = 3, green = 4, red_on_black = 5, purple = 6, gameover = 7 };
 enum enprobabilties_of_game {
 	computer_won = 1, user_won = 2, draw = 3
 };
 enum  enprobabilties_of_choice {
 	stone = 1, paper = 2, scissor = 3
 };
+void playm3lab() {
+	PlaySound(TEXT("lml-b-wl.wav"), NULL, SND_FILENAME | SND_ASYNC);
+}
+void playMario2GameOver() {
 
+
+
+	PlaySound(TEXT("smb2_game_over.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+
+}
+
+void animateText(const string& text, int delay = 20) {
+	for (char c : text) {
+		cout << c << flush;
+		Sleep(delay);
+	}
+}
 void screen_color(enScreen_color color) {
 	if (color == enScreen_color::black)system("color 0F");
 	if (color == enScreen_color::green)  system("color 2F");
 	if (color == enScreen_color::yellow)  system("color 6F");
 	if (color == enScreen_color::red)  system("color 4F");
+	if (color == enScreen_color::red_on_black)  system("color 0C");
+	if (color == enScreen_color::purple) system("color 0D");
+	if (color == enScreen_color::gameover)  system("color 40");
+
+
 }
 int random(int from, int to) {
 	return rand() % (to - from + 1) + from;
@@ -33,17 +59,18 @@ int input_from_to(int from, string text, int to) {
 	do {
 		cout << text;
 		cin >> round;
-		if (round < from || round>to) {
+		if (round < from || round>to) { // if user inputed number is not in range	
 			cout << "\n\nplease enter correct range!\n";
 			cout << '\a';
-			screen_color(red);
+			screen_color(red_on_black);
 			round = 0;
 		}
-		else  screen_color(green);
+		else  screen_color(black);
 	} while (round < from || round>to);
 	return round;
 }
 int user_choice() {
+	// function to get user choice between 1 and 3
 	return 	input_from_to(1, "", 3);
 }
 void print_text_after_each_round(int round_count, int& choice) {
@@ -58,7 +85,7 @@ void print_text_after_each_round(int round_count, int& choice) {
 
 
 
-enprobabilties_of_game computer_vs_user(int choice_from_user, stcount_wins_and_losses &count) {
+enprobabilties_of_game computer_vs_user(int choice_from_user, stcount_wins_and_losses& count) {
 	cout << '\n';
 
 	choice_from_user = enprobabilties_of_choice(choice_from_user);
@@ -186,7 +213,7 @@ enprobabilties_of_game computer_vs_user(int choice_from_user, stcount_wins_and_l
 
 
 
-void the_number_of_rounds_by_user(int& choice, int& time, stcount_wins_and_losses &count) {
+void the_number_of_rounds_by_user(int& choice, int& time, stcount_wins_and_losses& count) {
 	cout << "enter the number of rounds you want: ";
 
 	cin >> time;
@@ -205,30 +232,41 @@ void the_number_of_rounds_by_user(int& choice, int& time, stcount_wins_and_losse
 
 }
 
-void game_summary(stcount_wins_and_losses &count, int time) {
-	screen_color(black);
+void game_summary(stcount_wins_and_losses& count, int time) {
+	system("color 0C");
+
+	playMario2GameOver();
 	cout << "\n\t+==============================+\n";
-	cout << "\t|       G  A  M  E   O  V  E  R       |\n";
+	cout << "\t|       ";
+	animateText("G  A  M  E   O  V  E  R", 150);
+	cout << "       |\n";
 	cout << "\t+==============================+\n";
 
+	Sleep(300);
 	cout << "\n\t+------------------------------+\n";
-	cout << "\t|      *  R  E  S  U  L  T  S  *       |\n";
+	cout << "\t|      *  ";
+	animateText("R  E  S  U  L  T  S", 100);
+	cout << "  *       |\n";
 	cout << "\t+------------------------------+\n\n";
-	cout << "---------------------------------------------------" << endl;
-	cout << "the game rounds: " << time << endl;
-	cout << "player won times: " << count.user_wins << endl;
-	cout << "computer won times: " << count.computer_wins << endl;
-	cout << "draw times: " << count.draws << endl;
 
-	if (count.computer_wins > count.user_wins) cout << "final winner is: " << "computer" << endl;
-	else if (count.computer_wins < count.user_wins) cout << "final winner is: " << "player" << endl;
-	else cout << "No winner! " << endl;
+	Sleep(300);
+	cout << "---------------------------------------------------\n";
+	cout << "the game rounds: "; Sleep(200); cout << time << endl;
+	cout << "player won times: "; Sleep(200); cout << count.user_wins << endl;
+	cout << "computer won times: "; Sleep(200); cout << count.computer_wins << endl;
+	cout << "draw times: "; Sleep(200); cout << count.draws << endl;
 
-
-
+	Sleep(300);
+	cout << "\n";
+	if (count.computer_wins > count.user_wins)
+		animateText("final winner is: computer\n", 50);
+	else if (count.computer_wins < count.user_wins)
+		animateText("final winner is: player\n", 50);
+	else
+		animateText("No winner!\n", 50);
 }
 
-void start_game(int& choice, int& time, stcount_wins_and_losses &count) {
+void start_game(int& choice, int& time, stcount_wins_and_losses& count) {
 
 	the_number_of_rounds_by_user(choice, time, count);
 
@@ -239,7 +277,13 @@ void start_game(int& choice, int& time, stcount_wins_and_losses &count) {
 		cout << "\ndo you need another round? y/n ";
 		cin >> need;
 		if (need == 'y' || need == 'Y') {
-			system("CLS");
+			count.user_wins = 0;
+			count.computer_wins = 0;
+			count.draws = 0;
+			playm3lab();
+
+
+			system("CLS");//clear the whole screen
 			screen_color(black);
 
 			the_number_of_rounds_by_user(choice, time, count);
@@ -267,4 +311,4 @@ int main() {
 
 
 
-}    
+}
