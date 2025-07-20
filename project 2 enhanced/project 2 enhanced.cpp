@@ -22,7 +22,7 @@ string GetOpTypeSymbol(enOperationType optype) {
 }
 // return string that indicates to game level 
 string GetQuestionLevelText(enQuestionsLevel level ) {
-    string arr_level[4] = {"easy", "med" , "hard", "mix"};
+    string arr_level[4] = {"Easy", "Med" , "Hard", "Mix"};
 
     return arr_level[level - 1];
 }
@@ -35,10 +35,10 @@ int RandomNumber(int From, int To)
 
 // change screen color according to boolean
 void SetScreenColor(bool rigth) {
-    if (rigth) system("color2f"); // green
+    if (rigth) system("color 2F"); // green
     else {
         cout << "\a";
-        system("color4f"); // red
+        system("color 4F"); // red
     }
 }
 
@@ -156,16 +156,34 @@ void GenerateQuizzQuestions(stQuizz& Quizz)
         Quizz.QuestionList[i] = GenerateQuestion(Quizz.QuestionsLevel, Quizz.OpType);
 }
 
+
 // function to ask user to enter number 
-int ReadQuestionAnswer() {
-    int ans;
-    cin >> ans;
-    return ans;
+int ReadQuestionAnswer( ) 
+{
+
+    int Answer;
+    cin >> Answer;
+
+    return Answer;
+}
+
+// print!
+void PrintTheQuestion(stQuizz& Quizz, short QuestionNumber)
+{
+    cout << "\n";
+    cout << "Question [" << QuestionNumber + 1 << "/" << Quizz.NumberOfQuestions << "]\n\n";
+    cout << Quizz.QuestionList[QuestionNumber].Number1 << endl;
+    cout << Quizz.QuestionList[QuestionNumber].Number2 << " ";
+    cout << GetOpTypeSymbol(Quizz.QuestionList[QuestionNumber].OperationType) << "\n";
+    cout << "_________" << endl;
 }
 
 
+
+// compare the user answer and computer answer 
 void CorrectTheQuestionAnswer(stQuizz& Quizz , short question_number) {
-    if (Quizz.QuestionList[question_number].CorrectAnswer != Quizz.QuestionList[question_number].PlayerAnswer)
+
+    if (Quizz.QuestionList[question_number].PlayerAnswer != Quizz.QuestionList[question_number].CorrectAnswer)
     {
         Quizz.QuestionList[question_number].AnswerResult = false;
         Quizz.NumberOfWrongAnswers++;
@@ -184,4 +202,86 @@ void CorrectTheQuestionAnswer(stQuizz& Quizz , short question_number) {
 
         
     }
+
+    SetScreenColor (Quizz.QuestionList[question_number].AnswerResult);
+    cout << endl;
+}
+
+
+
+
+void AskAndCorrectQuestionListAnswers(stQuizz & Quizz)
+{
+    for (short i = 0; i < Quizz.NumberOfQuestions; i++) {
+        PrintTheQuestion(Quizz, i);
+       Quizz.QuestionList[i].PlayerAnswer = ReadQuestionAnswer();
+        CorrectTheQuestionAnswer(Quizz, i);
+    }
+    Quizz.isPass = (Quizz.NumberOfRightAnswers >= Quizz.NumberOfWrongAnswers);
+
+}
+
+// print pass or not 
+string GetFinalResultsText(bool pass) {
+    return pass ? "PASS :-)" : "Fail :-(";
+}
+
+// it explains itself !
+void PrintQuizzResults(stQuizz Quizz)
+{
+    cout << "\n______________________________\n\n";
+    cout << "Final Results is " << GetFinalResultsText(Quizz.isPass) << "\n";
+    cout << "______________________________\n\n";
+    cout << "Number of Questions     : " << Quizz.NumberOfQuestions << endl;
+    cout << "Questions Level         : " << GetQuestionLevelText(Quizz.QuestionsLevel) << endl;
+    cout << "OpType                  : " << GetOpTypeSymbol(Quizz.OpType) << endl;
+    cout << "Number of Right Answers : " << Quizz.NumberOfRightAnswers << endl;
+    cout << "Number of Wrong Answers : " << Quizz.NumberOfWrongAnswers << endl;
+    cout << "______________________________\n";
+}
+
+//ask user to input NumberOfQuestions
+// ask user ''''''' QuestionsLevel
+// ask user '''''''''' OpType
+// generate quizz questions (array that store generate question)
+// PrintTheQuestion 
+// ReadQuestionAnswer (provided by user )
+// CorrectTheQuestionAnswer 
+// print details 
+void PlayMathGame()
+{
+    stQuizz quizz;
+    // by user 
+    quizz.NumberOfQuestions = ReadHowManyQuestions();
+    quizz.QuestionsLevel = ReadQuestionsLevel();
+    quizz.OpType = ReadOpType();
+
+    GenerateQuizzQuestions(quizz);
+    AskAndCorrectQuestionListAnswers(quizz);
+    PrintQuizzResults(quizz);
+}
+
+
+// make screen black , clear the screen 
+void ResetScreen() {
+    system("cls");
+    system("color 0f");
+}
+
+void StartGame() {
+    cout << "\n";
+    char play = 'Y';
+    do {
+        ResetScreen();
+        PlayMathGame();
+        cout << "\nDo you want to play again? Y/N? ";
+        cin >> play;
+    } while (play == 'y' || play == 'Y');
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    StartGame();
+    return 0;
 }
