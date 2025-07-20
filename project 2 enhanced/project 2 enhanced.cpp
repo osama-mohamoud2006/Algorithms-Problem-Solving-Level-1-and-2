@@ -117,14 +117,17 @@ enOperationType GetRandomOperationType() {
     return (enOperationType)RandomNumber(1, 4);
 }
 
+// generate Question according to op type and Question level (provided by user)
 stQuestion GenerateQuestion(enQuestionsLevel QuestionLevel, enOperationType OpType) {
     stQuestion Question;
 
+    // if mix 
     if (Question.QuestionLevel == enQuestionsLevel::Mix) (enQuestionsLevel)RandomNumber(1, 3);
     if (enOperationType::MixOp == Question.OperationType) GetRandomOperationType();
     
  Question.OperationType = OpType;
 
+ // generating 2nums according to level 
  switch (QuestionLevel) {
  case::EasyLevel:
      Question.Number1 = RandomNumber(1, 10);
@@ -141,6 +144,44 @@ stQuestion GenerateQuestion(enQuestionsLevel QuestionLevel, enOperationType OpTy
    }
 
 
+ // taking 2nums from Question struct and call the Calculator to calucate it and store it var (in struct)  
  Question.CorrectAnswer = SimpleCalculator(Question.Number1, Question.Number2, OpType);
  return Question;
+}
+
+// array to store Question 
+void GenerateQuizzQuestions(stQuizz& Quizz)
+{
+    for (short i = 0; i < Quizz.NumberOfQuestions; i++)
+        Quizz.QuestionList[i] = GenerateQuestion(Quizz.QuestionsLevel, Quizz.OpType);
+}
+
+// function to ask user to enter number 
+int ReadQuestionAnswer() {
+    int ans;
+    cin >> ans;
+    return ans;
+}
+
+
+void CorrectTheQuestionAnswer(stQuizz& Quizz , short question_number) {
+    if (Quizz.QuestionList[question_number].CorrectAnswer != Quizz.QuestionList[question_number].PlayerAnswer)
+    {
+        Quizz.QuestionList[question_number].AnswerResult = false;
+        Quizz.NumberOfWrongAnswers++;
+        cout << "Wrong Answer :-(\n";
+        cout << "The right answer is: ";
+     
+        cout << Quizz.QuestionList[question_number].CorrectAnswer << "\n";
+
+  }
+    else {
+       
+        Quizz.QuestionList[question_number].AnswerResult = true;
+       Quizz.NumberOfRightAnswers++;
+        cout << "Right Answer :-)\n";
+        
+
+        
+    }
 }
