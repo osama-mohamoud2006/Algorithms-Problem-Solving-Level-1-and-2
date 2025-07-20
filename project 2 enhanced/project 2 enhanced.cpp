@@ -33,11 +33,114 @@ int RandomNumber(int From, int To)
     return rand() % (To - From + 1) + From;
 }
 
-// change screen color according to boolean variable 
+// change screen color according to boolean
 void SetScreenColor(bool rigth) {
     if (rigth) system("color2f"); // green
     else {
         cout << "\a";
         system("color4f"); // red
     }
+}
+
+
+// short range ( -32,768 to 32,767 )
+// function to ask user how many questions (will use it later) 
+short ReadHowManyQuestions() {
+    short num_of_ques;
+    do {
+        cout << "How many Questions do you want? ";
+        cin >> num_of_ques;
+    } while (1 > num_of_ques || num_of_ques > 10);
+    return num_of_ques;
+
+}
+
+// function to ask user about the level he wants to play (will use it later)
+enQuestionsLevel ReadQuestionsLevel() {
+    short level;
+    do {
+        cout << "Enter Questions Level [1] Easy, [2] Med, [3] Hard, [4] Mix? ";
+        cin >> level;
+    } while (level<1 || level > 4);
+    return (enQuestionsLevel)level;
+}
+
+// function to ask user about the operation he wants (will use it later)
+enOperationType ReadOpType() {
+    short op;
+    do {
+        cout << "Enter Operation Type [1] Add, [2] Sub, [3] Mul, [4] Div, [5] Mix? ";
+        cin >> op;
+    } while (op<1 || op > 5);
+
+    return enOperationType(op);
+
+}
+
+struct stQuestion
+{
+    int Number1 = 0;
+    int Number2 = 0;
+    enOperationType OperationType;
+    enQuestionsLevel QuestionLevel;
+    int CorrectAnswer = 0;
+    int PlayerAnswer = 0;
+    bool AnswerResult = false;
+};
+
+struct stQuizz
+{
+    stQuestion QuestionList[100];
+    short NumberOfQuestions;
+    enQuestionsLevel QuestionsLevel;
+    enOperationType OpType;
+    short NumberOfWrongAnswers = 0;
+    short NumberOfRightAnswers = 0;
+    bool isPass = false;
+};
+
+// taking two nums and make opearion according to optype
+int SimpleCalculator(int n1, int n2, enOperationType optype) {
+
+    switch (optype) {
+    case::Add:  return n1 + n2;
+    case::Sub: return n1 - n2;
+    case::Div: return n1 / n2;
+    case::Mult: return n1 * n2;
+    default:return n1 + n2;
+    }
+
+}
+
+// return random operation (if user asked) 
+enOperationType GetRandomOperationType() {
+    return (enOperationType)RandomNumber(1, 4);
+}
+
+stQuestion GenerateQuestion(enQuestionsLevel QuestionLevel, enOperationType OpType) {
+    stQuestion Question;
+
+    if (Question.QuestionLevel == enQuestionsLevel::Mix) (enQuestionsLevel)RandomNumber(1, 3);
+    if (enOperationType::MixOp == Question.OperationType) GetRandomOperationType();
+    
+ Question.OperationType = OpType;
+
+ switch (QuestionLevel) {
+ case::EasyLevel:
+     Question.Number1 = RandomNumber(1, 10);
+     Question.Number2 = RandomNumber(1, 10);
+     break;
+ case::MedLevel:
+     Question.Number1 = RandomNumber(11, 90);
+     Question.Number2 = RandomNumber(11, 90);
+     break;
+ case::HardLevel:
+     Question.Number1 = RandomNumber(1, 10);
+     Question.Number2 = RandomNumber(1, 10);
+     break;
+   }
+
+
+ Question.CorrectAnswer = SimpleCalculator(Question.Number1, Question.Number2, OpType);
+ return Question;
 }
