@@ -81,7 +81,7 @@ struct stQuestion
 {
     int Number1 = 0;
     int Number2 = 0;
-    enOperationType OperationType;
+    enOperationType OperationType = enOperationType::Add; // Initialize with a default value
     enQuestionsLevel QuestionLevel;
     int CorrectAnswer = 0;
     int PlayerAnswer = 0;
@@ -105,7 +105,9 @@ int SimpleCalculator(int n1, int n2, enOperationType optype) {
     switch (optype) {
     case::Add:  return n1 + n2;
     case::Sub: return n1 - n2;
-    case::Div: return n1 / n2;
+    case::Div:
+        if (n2 == 0) n2 = 1; 
+        return n1 / n2;
     case::Mult: return n1 * n2;
     default:return n1 + n2;
     }
@@ -114,40 +116,47 @@ int SimpleCalculator(int n1, int n2, enOperationType optype) {
 
 // return random operation (if user asked) 
 enOperationType GetRandomOperationType() {
-    return (enOperationType)RandomNumber(1, 4);
+    int op = RandomNumber(1, 4);
+    return (enOperationType)op;
 }
 
 // generate Question according to op type and Question level (provided by user)
 stQuestion GenerateQuestion(enQuestionsLevel QuestionLevel, enOperationType OpType) {
     stQuestion Question;
 
-    // if mix 
-    if (Question.QuestionLevel == enQuestionsLevel::Mix) (enQuestionsLevel)RandomNumber(1, 3);
-    if (enOperationType::MixOp == Question.OperationType) GetRandomOperationType();
-    
- Question.OperationType = OpType;
+   
+    if (QuestionLevel == enQuestionsLevel::Mix)
+        QuestionLevel = (enQuestionsLevel)RandomNumber(1, 3);
 
- // generating 2nums according to level 
- switch (QuestionLevel) {
- case::EasyLevel:
-     Question.Number1 = RandomNumber(1, 10);
-     Question.Number2 = RandomNumber(1, 10);
-     break;
- case::MedLevel:
-     Question.Number1 = RandomNumber(11, 90);
-     Question.Number2 = RandomNumber(11, 90);
-     break;
- case::HardLevel:
-     Question.Number1 = RandomNumber(1, 10);
-     Question.Number2 = RandomNumber(1, 10);
-     break;
-   }
+    if (OpType == enOperationType::MixOp)
+        OpType = GetRandomOperationType();
 
+   
+    Question.QuestionLevel = QuestionLevel;
+    Question.OperationType = OpType;
 
- // taking 2nums from Question struct and call the Calculator to calucate it and store it var (in struct)  
- Question.CorrectAnswer = SimpleCalculator(Question.Number1, Question.Number2, OpType);
- return Question;
+    switch (QuestionLevel) {
+    case enQuestionsLevel::EasyLevel:
+        Question.Number1 = RandomNumber(1, 10);
+        Question.Number2 = RandomNumber(1, 10);
+        break;
+
+    case enQuestionsLevel::MedLevel:
+        Question.Number1 = RandomNumber(11, 90);
+        Question.Number2 = RandomNumber(11, 90);
+        break;
+
+    case enQuestionsLevel::HardLevel:
+        Question.Number1 = RandomNumber(91, 999);
+        Question.Number2 = RandomNumber(91, 999);
+        break;
+    }
+
+    Question.CorrectAnswer = SimpleCalculator(Question.Number1, Question.Number2, OpType);
+
+    return Question;
 }
+
 
 // array to store Question 
 void GenerateQuizzQuestions(stQuizz& Quizz)
