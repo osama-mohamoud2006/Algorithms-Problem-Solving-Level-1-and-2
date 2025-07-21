@@ -16,10 +16,12 @@ string GetOpTypeSymbol(enOperationType optype) {
     case::Mult: return "*";
        
     case::Div: return "/";
+
     default: return "mix";
 
     }
 }
+
 // return string that indicates to game level 
 string GetQuestionLevelText(enQuestionsLevel level ) {
     string arr_level[4] = {"Easy", "Med" , "Hard", "Mix"};
@@ -83,20 +85,20 @@ struct stQuestion
     int Number2 = 0;
     enOperationType OperationType = enOperationType::Add; // Initialize with a default value
     enQuestionsLevel QuestionLevel;
-    int CorrectAnswer = 0;
-    int PlayerAnswer = 0;
+    int CorrectAnswer = 0; // computer's answer
+    int PlayerAnswer = 0; // player's answer 
     bool AnswerResult = false;
 };
 
 struct stQuizz
 {
     stQuestion QuestionList[100];
-    short NumberOfQuestions;
-    enQuestionsLevel QuestionsLevel;
-    enOperationType OpType;
-    short NumberOfWrongAnswers = 0;
-    short NumberOfRightAnswers = 0;
-    bool isPass = false;
+    short NumberOfQuestions; // will entered by user
+    enQuestionsLevel QuestionsLevel; // will entered by user 
+    enOperationType OpType; // will entered by user 
+    short NumberOfWrongAnswers = 0; // counter
+    short NumberOfRightAnswers = 0; // counter
+    bool isPass = false; //will store the result of comparison 
 };
 
 // taking two nums and make opearion according to optype
@@ -161,6 +163,7 @@ stQuestion GenerateQuestion(enQuestionsLevel QuestionLevel, enOperationType OpTy
 // array to store Question 
 void GenerateQuizzQuestions(stQuizz& Quizz)
 {
+    /// (Quizz.QuestionsLevel, Quizz.OpType ) by user
     for (short i = 0; i < Quizz.NumberOfQuestions; i++)
         Quizz.QuestionList[i] = GenerateQuestion(Quizz.QuestionsLevel, Quizz.OpType);
 }
@@ -261,9 +264,9 @@ void PlayMathGame()
 {
     stQuizz quizz;
     // by user 
-    quizz.NumberOfQuestions = ReadHowManyQuestions();
-    quizz.QuestionsLevel = ReadQuestionsLevel();
-    quizz.OpType = ReadOpType();
+    quizz.NumberOfQuestions = ReadHowManyQuestions(); // by user 
+    quizz.QuestionsLevel = ReadQuestionsLevel(); // by user
+    quizz.OpType = ReadOpType(); // by user 
 
     GenerateQuizzQuestions(quizz);
     AskAndCorrectQuestionListAnswers(quizz);
@@ -290,7 +293,10 @@ void StartGame() {
 
 int main()
 {
+
     srand((unsigned)time(NULL));
     StartGame();
     return 0;
+
+
 }
