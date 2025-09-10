@@ -47,7 +47,7 @@ void SetScreenColor(bool rigth) {
 
 // short range ( -32,768 to 32,767 )
 // function to ask user how many questions (will use it later) 
-short ReadHowManyQuestions() {
+short  () {
     short num_of_ques;
     do {
         cout << "How many Questions do you want? ";
