@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # مسار المشروع الأساسي
-project_dir="E:/projects/c++ course/Algorithms & Problem-Solving Level 2"
+project_dir="E:/projects/c++ course/Algorithms & Problem-Solving Level 1 and 2"
 cd "$project_dir" || exit
 
 # ملف تاريخ الإنشاء
